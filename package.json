@@ -4,17 +4,20 @@
   "description": "A resource freezer plugin for gulp",
   "main": "index.js",
   "dependencies": {
+    "event-stream": "~3.1.5",
+    "through2": "~0.4.1",
+    "gulp-util": "~2.2.14"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/nyakto/gulp-freeze-resources.git"
   },
   "keywords": [
-      "gulpplugin",
-      "freeze",
-      "cache",
-      "buster",
-      "css"
+    "gulpplugin",
+    "freeze",
+    "cache",
+    "buster",
+    "css"
   ],
   "author": "Stanislav Yashenkov <vampire@realtymag.ru>",
   "license": "MIT",
