@@ -8,6 +8,9 @@
     "through2": "~0.4.1",
     "gulp-util": "~2.2.14"
   },
+  "directories": {
+    "lib": "./lib"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/nyakto/gulp-freeze-resources.git"

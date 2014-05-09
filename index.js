@@ -2,7 +2,8 @@ var es = require('event-stream'),
     fs = require('fs'),
     through = require('through2'),
     gutil = require('gulp-util'),
-    crypto = require('crypto'),
+    fileHash = require('./lib/file-hash'),
+    sha1Base64Hash = require('./lib/sha1-base64-hash'),
     path = require('path'),
     stringRe = "(?:(?:'[^'\\r\\n]*')|(?:\"[^\"\\r\\n]*\"))",
     urlRe = "(?:(?:\\burl\\(\\s*" + stringRe + "\\s*\\))|(?:\\burl\\(\\s*[^\\s\\r\\n'\"]*\\s*\\)))",
@@ -10,18 +11,6 @@ var es = require('event-stream'),
     commentRe = '(?:/\\*[^*]*\\*+(?:[^/][^*]*\\*+)*/)',
     urlStringRe = new RegExp('^' + urlRe + '$'),
     srcStringRe = new RegExp('^' + srcRe + '$');
-
-function getFileHash(fileName) {
-    var content = fs.readFileSync(fileName);
-    var sha1 = crypto.createHash('sha1');
-    sha1.update(content);
-    var base64 = sha1.digest('base64');
-    return base64
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_')
-        .replace(/=/g, '')
-        .replace(/^[+-]+/g, '');
-}
 
 function isRelativeUrl(url) {
     return !/^(\w+:|\/)/.test(url);
@@ -69,7 +58,7 @@ function Freezer(options) {
         return true;
     };
 
-    this.hashFn = options.hash || getFileHash;
+    this.hashFn = options.hash || fileHash(sha1Base64Hash);
 
     this.renameFn = options.rename || function (fileName, hash) {
         return hash + path.extname(fileName);
