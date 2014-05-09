@@ -12,6 +12,9 @@ npm install --save-dev gulp-freeze-resources
 Then, add it to your `gulpfile.js`:
 
 ```javascript
+var gulp = require('gulp');
+var concat = require('gulp-concat');
+var Freezer = require('gulp-freeze-resources');
 var freezer = null;
 
 gulp.task('styles', function () {
