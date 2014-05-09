@@ -1,6 +1,6 @@
 {
   "name": "gulp-freeze-resources",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A resource freezer plugin for gulp",
   "main": "index.js",
   "dependencies": {
