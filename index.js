@@ -165,18 +165,18 @@ Freezer.prototype.processResource = function (file, url) {
     if (!this.testFn(fileName)) {
         return url;
     }
-    var hash = this.hashFn(fileName);
-    var newFileName = this.renameFn(fileName, hash);
-    if (fs.existsSync(fileName)) {
-        this.resourcesStream.write(new gutil.File({
-            cwd: file.cwd,
-            base: file.base,
-            path: fileName,
-            contents: new Buffer(fs.readFileSync(fileName))
-        }));
-    } else {
+    if (!fs.existsSync(fileName)) {
         gutil.log('freeze resources: missing file ' + JSON.stringify(url));
+        return url;
     }
+	var hash = this.hashFn(fileName);
+	var newFileName = this.renameFn(fileName, hash);
+	this.resourcesStream.write(new gutil.File({
+		cwd: file.cwd,
+		base: file.base,
+		path: fileName,
+		contents: new Buffer(fs.readFileSync(fileName))
+	}));
     this.map[fileName] = newFileName;
     return newFileName;
 };
